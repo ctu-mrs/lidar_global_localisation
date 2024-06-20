@@ -1,0 +1,8 @@
+/home/michal/git/LidarLocalisationProject/build/CMakeFiles/LidarLocalisation.dir
+/home/michal/git/LidarLocalisationProject/build/CMakeFiles/edit_cache.dir
+/home/michal/git/LidarLocalisationProject/build/CMakeFiles/rebuild_cache.dir
+/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/CMakeFiles/edit_cache.dir
+/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/CMakeFiles/rebuild_cache.dir
+/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/map_closures/CMakeFiles/map_closures.dir
+/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/map_closures/CMakeFiles/edit_cache.dir
+/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/map_closures/CMakeFiles/rebuild_cache.dir

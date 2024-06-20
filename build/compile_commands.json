@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/map_closures",
+  "command": "/usr/bin/c++ -DSRRG_HBST_HAS_EIGEN -DSRRG_HBST_HAS_OPENCV -DSRRG_MERGE_DESCRIPTORS -I/home/michal/git/LidarLocalisationProject/build/_deps/hbst-src -I/home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/.. -isystem /usr/include/eigen3 -isystem /usr/include/opencv4 -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/map_closures.dir/DensityMap.cpp.o -c /home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/DensityMap.cpp",
+  "file": "/home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/DensityMap.cpp",
+  "output": "map_closures_cpp/map_closures/CMakeFiles/map_closures.dir/DensityMap.cpp.o"
+},
+{
+  "directory": "/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/map_closures",
+  "command": "/usr/bin/c++ -DSRRG_HBST_HAS_EIGEN -DSRRG_HBST_HAS_OPENCV -DSRRG_MERGE_DESCRIPTORS -I/home/michal/git/LidarLocalisationProject/build/_deps/hbst-src -I/home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/.. -isystem /usr/include/eigen3 -isystem /usr/include/opencv4 -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/map_closures.dir/AlignRansac2D.cpp.o -c /home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/AlignRansac2D.cpp",
+  "file": "/home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/AlignRansac2D.cpp",
+  "output": "map_closures_cpp/map_closures/CMakeFiles/map_closures.dir/AlignRansac2D.cpp.o"
+},
+{
+  "directory": "/home/michal/git/LidarLocalisationProject/build/map_closures_cpp/map_closures",
+  "command": "/usr/bin/c++ -DSRRG_HBST_HAS_EIGEN -DSRRG_HBST_HAS_OPENCV -DSRRG_MERGE_DESCRIPTORS -I/home/michal/git/LidarLocalisationProject/build/_deps/hbst-src -I/home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/.. -isystem /usr/include/eigen3 -isystem /usr/include/opencv4 -O3 -DNDEBUG -std=gnu++17 -fPIC -o CMakeFiles/map_closures.dir/MapClosures.cpp.o -c /home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/MapClosures.cpp",
+  "file": "/home/michal/git/LidarLocalisationProject/map_closures_cpp/map_closures/MapClosures.cpp",
+  "output": "map_closures_cpp/map_closures/CMakeFiles/map_closures.dir/MapClosures.cpp.o"
+}
+]
