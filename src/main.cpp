@@ -10,7 +10,7 @@ int main() {
 
     // define map closures object
     map_closures::Config config;
-    config.density_map_resolution = 2.0;
+    config.density_map_resolution = 1.0;
     config.density_threshold = 0.2;
     config.hamming_distance_threshold = 50;
     map_closures::MapClosures map_closures(config);
@@ -39,9 +39,9 @@ int main() {
       dataLoader.convertPointCloudToEigenVector(down_cloud, pointVector);
       std::cout<<pointVector.size()<<std::endl;
       
-      for (const auto &point : pointVector) {
-            std::cout << "Point: [" << point.x() << ", " << point.y() << ", " << point.z() << "]" << std::endl;
-      }
+      //for (const auto &point : pointVector) {
+      //      std::cout << "Point: [" << point.x() << ", " << point.y() << ", " << point.z() << "]" << std::endl;
+      //}
       
       //add submap to database
       map_closures.AddNewSubmap(id, pointVector);

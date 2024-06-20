@@ -72,7 +72,7 @@ void MapClosures::AddNewSubmap(const int id, const std::vector<Eigen::Vector3d> 
     std::vector<cv::KeyPoint> orb_keypoints;
     orb_extractor_->detectAndCompute(density_map.grid, cv::noArray(), orb_keypoints,
                                      orb_descriptors);
-
+    std::cout<<"num of orb_keypoints "<<orb_keypoints.size()<<std::endl;
     auto hbst_matchable = Tree::getMatchables(orb_descriptors, orb_keypoints, id);
     hbst_binary_tree_->matchAndAdd(hbst_matchable, descriptor_matches_,
                                    config_.hamming_distance_threshold,
