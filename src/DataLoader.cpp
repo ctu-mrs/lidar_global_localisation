@@ -5,11 +5,11 @@
 #include <iostream>
 #include <vector>
 #include <Eigen/Dense>
+#include <pcl/filters/voxel_grid.h>
 
-void DataLoader::convertPointCloudToEigenVector(const std::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> &cloud, std::vector<Eigen::Vector3d> &pointVector) {
+void DataLoader::convertPointCloudToEigenVector(const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> &cloud, std::vector<Eigen::Vector3d> &pointVector) {
     pointVector.clear();
     pointVector.reserve(cloud->points.size()); // Reserve space for efficiency
-
     for (const auto& point : cloud->points) {
         Eigen::Vector3d vec(point.x, point.y, point.z);
         pointVector.push_back(vec);
@@ -17,7 +17,17 @@ void DataLoader::convertPointCloudToEigenVector(const std::shared_ptr<pcl::Point
 }
 
 
-std::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> DataLoader::parsePLYFile(const std::string &filename) {
+boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> DataLoader::downsamplePointCloud(const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> &cloud, float leaf_size) {
+    auto downsampled_cloud = boost::make_shared<pcl::PointCloud<pcl::PointXYZ>>();
+    pcl::VoxelGrid<pcl::PointXYZ> voxel_grid;
+    voxel_grid.setInputCloud(cloud);
+    voxel_grid.setLeafSize(leaf_size, leaf_size, leaf_size);
+    voxel_grid.filter(*downsampled_cloud);
+    return downsampled_cloud;
+}
+
+
+boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> DataLoader::parsePLYFile(const std::string &filename) {
 
     std::ifstream infile(filename);
     if (!infile.is_open()) {
@@ -26,7 +36,7 @@ std::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> DataLoader::parsePLYFile(const s
     }
 
     //pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    std::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> cloud(new pcl::PointCloud<pcl::PointXYZ>);
+    boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> cloud(new pcl::PointCloud<pcl::PointXYZ>);
     std::string line;
     bool headerEnded = false;
     int vertexCount = 0;

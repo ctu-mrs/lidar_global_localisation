@@ -33,6 +33,7 @@
 #include <opencv2/core.hpp>
 #include <utility>
 #include <vector>
+#include <opencv2/imgcodecs.hpp>
 
 #include "AlignRansac2D.hpp"
 #include "DensityMap.hpp"
@@ -62,6 +63,42 @@ MapClosures::MapClosures(const Config &config) : config_(config) {
     orb_extractor_ =
         cv::ORB::create(nfeatures, scale_factor, n_levels, edge_threshold, first_level, WTA_K,
                         cv::ORB::ScoreType(score_type), patch_size, fast_threshold);
+}
+
+
+void MapClosures::AddNewSubmap(const int id, const std::vector<Eigen::Vector3d> &local_map){
+    DensityMap density_map = GenerateDensityMap(local_map, config_.density_map_resolution, config_.density_threshold);
+    cv::Mat orb_descriptors;
+    std::vector<cv::KeyPoint> orb_keypoints;
+    orb_extractor_->detectAndCompute(density_map.grid, cv::noArray(), orb_keypoints,
+                                     orb_descriptors);
+
+    auto hbst_matchable = Tree::getMatchables(orb_descriptors, orb_keypoints, id);
+    hbst_binary_tree_->matchAndAdd(hbst_matchable, descriptor_matches_,
+                                   config_.hamming_distance_threshold,
+                                   srrg_hbst::SplittingStrategy::SplitEven);
+
+    std::string filepath = "/home/michal/git/LidarLocalisationProject/debug/grid_" + std::to_string(id) + ".png";
+    if (!cv::imwrite(filepath, density_map.grid)) {
+        throw std::runtime_error("Failed to save the density map grid to file.");
+    }
+    density_maps_.emplace(id, std::move(density_map));
+}
+
+
+void MapClosures::saveSubmapToFile(const int map_id, const std::string &filepath){
+    const DensityMap &density_map = getDensityMapFromId(map_id);
+
+    // Print debug information
+    std::cout << "Saving grid to file: " << filepath << std::endl;
+    std::cout << "Grid size: " << density_map.grid.cols << "x" << density_map.grid.rows << std::endl;
+    std::cout << "Grid type: " << density_map.grid.type() << std::endl;
+    std::cout << "Grid depth: " << density_map.grid.depth() << std::endl;
+    std::cout << "Grid channels: " << density_map.grid.channels() << std::endl;
+
+    if (!cv::imwrite(filepath, density_map.grid)) {
+        throw std::runtime_error("Failed to save the density map grid to file.");
+    }
 }
 
 ClosureCandidate MapClosures::MatchAndAdd(const int id,

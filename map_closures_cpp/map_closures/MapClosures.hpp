@@ -60,6 +60,9 @@ public:
     ~MapClosures() = default;
 
     ClosureCandidate MatchAndAdd(const int id, const std::vector<Eigen::Vector3d> &local_map);
+    void AddNewSubmap(const int id, const std::vector<Eigen::Vector3d> &local_map);
+    void saveSubmapToFile(const int map_id, const std::string &filepath);
+
     ClosureCandidate ValidateClosure(const int reference_id, const int query_id) const;
 
     const DensityMap &getDensityMapFromId(const int &map_id) const {

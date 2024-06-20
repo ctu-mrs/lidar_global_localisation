@@ -5,7 +5,7 @@ project(LidarLocalisation)
 set(CMAKE_BUILD_TYPE Release)
 
 # Find PCL package
-find_package(PCL 1.8 REQUIRED)
+find_package(PCL 1.10 REQUIRED)
 
 # Include the external project
 add_subdirectory(map_closures_cpp)

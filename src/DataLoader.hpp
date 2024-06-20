@@ -11,9 +11,10 @@
 class DataLoader {
 public:
     
-    std::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> parsePLYFile(const std::string &filename);
-    void convertPointCloudToEigenVector(const std::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> &cloud,
-                                        std::vector<Eigen::Vector3d> &eigen_vector);
+    boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> parsePLYFile(const std::string &filename);
+    void convertPointCloudToEigenVector(const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> &cloud,
+                                        std::vector<Eigen::Vector3d> &vec);
+    boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> downsamplePointCloud(const boost::shared_ptr<pcl::PointCloud<pcl::PointXYZ>> &cloud, float leaf_size);
 };
 
 #endif // DATALOADER_HPP
