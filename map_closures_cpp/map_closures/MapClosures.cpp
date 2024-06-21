@@ -78,10 +78,10 @@ void MapClosures::AddNewSubmap(const int id, const std::vector<Eigen::Vector3d> 
                                    config_.hamming_distance_threshold,
                                    srrg_hbst::SplittingStrategy::SplitEven);
 
-    std::string filepath = "/home/michal/git/LidarLocalisationProject/debug/grid_" + std::to_string(id) + ".png";
-    if (!cv::imwrite(filepath, density_map.grid)) {
-        throw std::runtime_error("Failed to save the density map grid to file.");
-    }
+    //std::string filepath = "/home/michal/git/LidarLocalisationProject/debug/grid_" + std::to_string(id) + ".png";
+    //if (!cv::imwrite(filepath, density_map.grid)) {
+    //    throw std::runtime_error("Failed to save the density map grid to file.");
+    //}
     density_maps_.emplace(id, std::move(density_map));
 }
 
@@ -90,11 +90,11 @@ void MapClosures::saveSubmapToFile(const int map_id, const std::string &filepath
     const DensityMap &density_map = getDensityMapFromId(map_id);
 
     // Print debug information
-    std::cout << "Saving grid to file: " << filepath << std::endl;
-    std::cout << "Grid size: " << density_map.grid.cols << "x" << density_map.grid.rows << std::endl;
-    std::cout << "Grid type: " << density_map.grid.type() << std::endl;
-    std::cout << "Grid depth: " << density_map.grid.depth() << std::endl;
-    std::cout << "Grid channels: " << density_map.grid.channels() << std::endl;
+    //std::cout << "Saving grid to file: " << filepath << std::endl;
+    //std::cout << "Grid size: " << density_map.grid.cols << "x" << density_map.grid.rows << std::endl;
+    //std::cout << "Grid type: " << density_map.grid.type() << std::endl;
+    //std::cout << "Grid depth: " << density_map.grid.depth() << std::endl;
+    //std::cout << "Grid channels: " << density_map.grid.channels() << std::endl;
 
     if (!cv::imwrite(filepath, density_map.grid)) {
         throw std::runtime_error("Failed to save the density map grid to file.");
@@ -121,6 +121,7 @@ ClosureCandidate MapClosures::MatchAndAdd(const int id,
                                          const ClosureCandidate &b) -> ClosureCandidate {
         return a.number_of_inliers > b.number_of_inliers ? a : b;
     };
+    
     using iterator_type = std::vector<int>::const_iterator;
     const auto &closure = tbb::parallel_reduce(
         tbb::blocked_range<iterator_type>{indices.cbegin(), indices.cend()}, ClosureCandidate(),
@@ -137,10 +138,12 @@ ClosureCandidate MapClosures::MatchAndAdd(const int id,
 }
 
 ClosureCandidate MapClosures::ValidateClosure(const int reference_id, const int query_id) const {
+  std::cout<<"Validate closure call, ref_id:"<<reference_id<<" query_id:"<<query_id;
     const Tree::MatchVector &matches = descriptor_matches_.at(reference_id);
     const size_t num_matches = matches.size();
 
     ClosureCandidate closure;
+    std::cout<<" number of matches: "<<num_matches<<std::endl;
     if (num_matches > 2) {
         const auto &ref_map_lower_bound = density_maps_.at(reference_id).lower_bound;
         const auto &qry_map_lower_bound = density_maps_.at(query_id).lower_bound;
