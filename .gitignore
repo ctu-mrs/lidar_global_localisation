@@ -33,6 +33,10 @@
 
 /build/
 
+/map_tiles_ply/
+
+*.ply
+
 *.sw*
 
 *.png
